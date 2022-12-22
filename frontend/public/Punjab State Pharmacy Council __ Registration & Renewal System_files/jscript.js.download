@@ -1,0 +1,273 @@
+if ( window.history.replaceState) {
+        window.history.replaceState( null, null, window.location.href);
+}
+               
+            $(document).ready(function () {
+                if($(window).width()<800){
+                  $('#sidebar').toggleClass('active');  
+                }
+                $('#content').on('click', function(){
+                    $('#Result').empty();
+                })
+                    get_xboard('x_board');
+                    get_xiiboard('xii_board');
+                     //get_university_state('state_of_passing_mbbs_list');
+                    $('#sidebarCollapse').on('click', function () {
+                    $('#sidebar').toggleClass('active');
+                    });
+                    $("#MyModal").modal('show');
+                    $('#ChngPwd').modal('show');
+                    $('#MyDataTable').DataTable();
+                    $('#datetimepicker').datetimepicker();
+                    
+		    if ( $('[type="date"]').prop('type') != 'date' ) {
+                    $('[type="date"]').datetimepicker({format: 'YYYY-MM-DD'});
+                    }
+		    if ( $('[type="datetime"]').prop('type') != 'datetime' ) {
+                    $('[type="datetime"]').datetimepicker({format: 'YYYY-MM-DD H:m:s'});
+                    }
+                 $('#login_password').on('blur', (function () {
+                var v_json = {x:window.btoa(unescape(encodeURIComponent($('#login_password').val())))};   
+                        $.ajax({
+                                    cache: false,
+                                    type: "POST",
+                                    url:base_url+'encr_pwd',
+                                    data: v_json,
+                                    dataType: "HTML",
+                                    success:function(data){
+                                    $('#login_password').val(data);
+                                    }
+                                });            
+
+                        }));
+                });
+                function get_subtype(e,f){
+                var v_json = {list_type:e};
+                $.ajax({
+                cache: false,
+                type: "POST",
+                url:base_url+'ListSubType',
+                data: v_json,
+                dataType: "HTML",
+                success:function(data){
+                $('#'+f).html(data);
+                }
+                }); 
+                };
+                function get_state(e,f){
+                var v_json = {country_name:e};
+                $.ajax({
+                cache: false,
+                type: "POST",
+                url:base_url+'CountryState',
+                data: v_json,
+                dataType: "HTML",
+                success:function(data){
+                $('#'+f).html(data);
+                }
+                }); 
+                };
+                function get_district(e,f){
+                var v_json = {state_name:e};
+                $.ajax({
+                cache: false,
+                type: "POST",
+                url:base_url+'StateDistrict',
+                data: v_json,
+                dataType: "HTML",
+                success:function(data){
+                $('#'+f).html(data);
+                }
+                }); 
+                };
+                function get_city(e,f){
+                var v_json = {state_name:e};
+                $.ajax({
+                cache: false,
+                type: "POST",
+                url:base_url+'StateCity',
+                data: v_json,
+                dataType: "HTML",
+                success:function(data){
+                $('#'+f).html(data);
+                }
+                }); 
+                };
+                function get_role_entity(e,f){
+                var v_json = {role_id:e};
+                $.ajax({
+                cache: false,
+                type: "POST",
+                url:base_url+'RoleEntity',
+                data: v_json,
+                dataType: "HTML",
+                success:function(data){
+                $('#'+f).html(data);
+                }
+                }); 
+                };
+                function get_university_state(e){
+                $.ajax({
+                cache: false,
+                type: "POST",
+                url:base_url+'GetUniversityState',
+                dataType: "HTML",
+                success:function(data){
+                $('#'+e).html(data);
+                }
+                }); 
+                };
+                function get_universitieses(e,f){
+                    var v_json = {appln_category:e};
+                    $.ajax({
+                    cache: false,
+                    type: "POST",
+                    url:base_url+'GetUniversityes',
+                    data: v_json,
+                    dataType: "HTML",
+                    success:function(data){
+                    $('#'+f).html(data);
+                    }
+                    }); 
+                    };
+                    function get_collegeses(e,f){
+                    var v_json = {university_name:e};
+                    $.ajax({
+                    cache: false,
+                    type: "POST",
+                    url:base_url+'GetCollegees',
+                    data: v_json,
+                    dataType: "HTML",
+                    success:function(data){
+                    $('#'+f).html(data);
+                    }
+                    }); 
+                    };
+                function get_universities(e,f){
+                var v_json = {state_name:e};
+                $.ajax({
+                cache: false,
+                type: "POST",
+                url:base_url+'GetUniversity',
+                data: v_json,
+                dataType: "HTML",
+                success:function(data){
+                $('#'+f).html(data);
+                }
+                }); 
+                };
+                function get_colleges(e,f){
+                var v_json = {university_name:e};
+                $.ajax({
+                cache: false,
+                type: "POST",
+                url:base_url+'GetCollege',
+                data: v_json,
+                dataType: "HTML",
+                success:function(data){
+                $('#'+f).html(data);
+                }
+                }); 
+                };
+                
+                function get_nmc_list(f){
+                $.ajax({
+                cache: false,
+                type: "POST",
+                url:base_url+'GetNMC',
+                dataType: "HTML",
+                success:function(data){
+                $('#'+f).html(data);
+                }
+                }); 
+                };
+
+                function get_xboard(e,f){
+                    var v_json = {x_board:e};
+                    $.ajax({
+                    cache: false,
+                    type: "POST",
+                    url:base_url+'GetXBoard',
+                    data: v_json,
+                    dataType: "HTML",
+                    success:function(data){
+                    $('#'+f).html(data);
+                }
+                }); 
+                };
+                function get_xiiboard(e,f){
+                    var v_json = {xii_board:e};
+                    $.ajax({
+                    cache: false,
+                    type: "POST",
+                    url:base_url+'GetXIIBoard',
+                    data: v_json,
+                    dataType: "HTML",
+                    success:function(data){
+                    $('#'+f).html(data);
+                }
+                }); 
+                };
+                function upload_file(e){                   
+                var form_data = new FormData();              
+                form_data.append('_file', document.getElementById(e).files[0]);
+                form_data.append('form_data',$('#form_data_'+e).val);
+                $.ajax({
+                                    cache: false,
+                                    type: "POST",
+                                    url:base_url+'UploadDocumetns',
+                                    data: form_data,
+                                    dataType: "text",
+                                    contentType: false,
+                                    processData: false,
+                                    success:function(data){
+                                    const resp = JSON.parse(data);
+                                    var result=window.atob(resp.result);
+                                    if(resp.status===true){
+                                        $('#'+e).attr('type', 'text');
+                                    }else{
+                                        //$('#upload_response').html(result);
+                                        alert(result);
+                                    }
+                                    }
+                                }); 
+                }
+                
+                function mysql_date(d){
+                    //This function should be used to change date format from dd/mm/yyyy to yyyy-mm-dd//
+                    var db_date=d.split('/');
+                    var db_date=(db_date[2]+'-'+db_date[1]+'-'+db_date[0]);
+                    return db_date;
+                }
+                 function show_modal(type)
+                {
+                    if (type == "Add_Rec") {
+                        $('#Add').modal('show');
+                    }
+                    if (type == "Updt_Rec") {
+                        $('#Updt').modal('show');
+                    }
+                    if (type == "Del_Rec") {
+                    $('#Del').modal('show');
+                    }
+                };
+                function printArea(areaID){
+                var printContent = document.getElementById(areaID);
+                var WinPrint = window.open('', '', 'width=900,height=650');
+                    WinPrint.document.write(printContent.innerHTML);
+                    WinPrint.document.close();
+                    WinPrint.focus();
+                    WinPrint.print();
+                    WinPrint.close();
+                }
+                var today = new Date();
+                var dd = today.getDate();
+                var mm = today.getMonth()+1; //January is 0!
+                var yyyy = today.getFullYear();
+                if(dd<10){ 
+                    dd='0'+ dd;
+                } 
+                if(mm<10){
+                    mm='0'+mm;
+                } 
+                var today = dd+'/'+mm+'/'+yyyy;
